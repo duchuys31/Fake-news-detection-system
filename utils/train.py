@@ -1,12 +1,16 @@
-import sys
-sys.path.append("C:\\Users\\BAOVIET\\OneDrive\\Máy tính\\Tai lieu hoc tap\\2024\\FakeNews-Detection-System")
+import sys, os
+from dotenv import load_dotenv 
+load_dotenv()
+sys.path.append(os.environ.get("FOLDER_PATH"))
 
-from tranformers import TransformerModel
-from sources.preprocessing.process import Process
+
+
+from model import TransformerModel
+from process import Process
 from configparser import ConfigParser
 from sklearn.model_selection import train_test_split
 
-config_path = 'sources/config/config.ini'
+config_path = 'utils/config.ini'
 
 config = ConfigParser()
 config.read(config_path)
@@ -27,5 +31,5 @@ preprocess = Process(vocab_size, max_len)
 X, y = preprocess.process_train_data(data_path)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-model.fit(X_train, y_train, validation_data = (X_test, y_test), epochs = 10, batch_size = 32)
+model.fit(X_train, y_train, validation_data = (X_test, y_test), epochs = 100, batch_size = 32)
 model.save(weights)

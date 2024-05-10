@@ -1,7 +1,13 @@
+import sys, os
+from dotenv import load_dotenv 
+load_dotenv()
+sys.path.append(os.environ.get("FOLDER_PATH"))
+
+import tensorflow as tf
+
 import pandas as pd
 import numpy as np
 
-import nltk
 import re
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
